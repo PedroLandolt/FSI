@@ -45,7 +45,7 @@ openssl x509 -in ca.crt -text -noout
 openssl rsa -in ca.key -text -noout
 ```
 
-Após uma análise dos dois ficheiros ![ca.key](images/LB 11/ca.key_output.txt) e ![ca.crt](images/LB 11/ca.crt_output.txt)) conseguimos: - confirmar através da linha 59 do ficheiro ```ca.crt```, (```CA: TRUE```), que o certificado que criamos é um certificado de Autoridade de Certificação;
+Após uma análise dos dois ficheiros ![ca.key](images/LB_11/ca.key_output.txt) e ![ca.crt](images/LB_11/ca.crt_output.txt)) conseguimos: - confirmar através da linha 59 do ficheiro ```ca.crt```, (```CA: TRUE```), que o certificado que criamos é um certificado de Autoridade de Certificação;
 - confirmar através das linhas 7 e 11 do ficheiro ```ca.crt```, que o certificado que criamos é _self-signed_ uma vez que os valores nos campos ```Issuer``` e ```Subject``` são idênticos;
 - identificar os valores dos elementos pedidos no guião:
 
@@ -68,7 +68,7 @@ openssl req -newkey rsa:2048 -sha256 \
 -addext "subjectAltName = DNS:www.bank32.com, DNS:www.bank32A.com, DNS:www.bank32B.com"
 ```
 
-Seguidamente corremos os comandos para verificar o contéudo descodificado dos dois ficheiros, o CSR e a _private key_ (![server.csr](images/LB 11/server.csr_output.txt) e ![server.key](images/LB 11/server.key_output.txt)), respetivamente):
+Seguidamente corremos os comandos para verificar o contéudo descodificado dos dois ficheiros, o CSR e a _private key_ (![server.csr](images/LB_11/server.csr_output.txt) e ![server.key](images/LB_11/server.key_output.txt)), respetivamente):
 
 ```shell
 openssl req -in server.key -text -noout
@@ -86,7 +86,7 @@ openssl ca -config openssl.cnf -policy policy_anything \
 -cert ca.crt -keyfile ca.key
 ```
 
-![Tarefa 3](images/LB 11/Tarefa3.png)
+![Tarefa 3](images/LB_11/Tarefa3.png)
 
 Como podemos verificar na seguinte secção do ficheiro, os nomes alternativos adicionados na tarefa 2 estao presentes no certificado.
 
@@ -120,32 +120,32 @@ Para iniciar o servidor Apache foi necessário primeiro abrir uma shell no conta
 service apache2 start
 ```
 
-![Tarefa 4](images/LB 11/Tarefa4_1.png)
+![Tarefa 4](images/LB_11/Tarefa4_1.png)
 
 Fornecendo a password utilizada dentro do container, ```dees```, como especificado no guião, tentamos aceder ao url ```http://www.bank32.com:443/```
 
-![Tarefa 4](images/LB 11/Tarefa4_2.png)
+![Tarefa 4](images/LB_11/Tarefa4_2.png)
 
 Seguindo as indicações do website colocamos ```https://``` no início do url, conseguindo assim aceder ao website
 
-![Tarefa 4](images/LB 11/Tarefa4_3.png)
+![Tarefa 4](images/LB_11/Tarefa4_3.png)
 
 Verificamos que a ligação não era segura, ou seja, para o alcançar teriamos de adicionar o certificado que criamos às autoridades no browser a ser utilizado.
 Escrevemos ```about:preferences#privacy``` na barra de endereços e clicamos no botao ```View certificates```
 
-![Tarefa 4](images/LB 11/Tarefa4_4.png)
+![Tarefa 4](images/LB_11/Tarefa4_4.png)
 
 Clicamos em ```import``` e selecionamos o nosso ficheiro ```ca.crt```, o certificado de Autoridade de Certificação.
 
-![Tarefa 4](images/LB 11/Tarefa4_5.png)
+![Tarefa 4](images/LB_11/Tarefa4_5.png)
 
 Ativamos a opção ```Trust this CA to identify websites``` como especificado no guião
 
-![Tarefa 4](images/LB 11/Tarefa4_6.png)
+![Tarefa 4](images/LB_11/Tarefa4_6.png)
 
 Verificamos que a ligação passou então a ser segura.
 
-![Tarefa 4](images/LB 11/Tarefa4_7.png)
+![Tarefa 4](images/LB_11/Tarefa4_7.png)
 
 ## Tarefa 5: Lançar um ataque do tipo Man-In-The-Middle
 
@@ -153,11 +153,11 @@ Para conseguirmos que o pedido HTTPS do utilizador se refira ao nosso servidor w
 
 Correndo o comando ```service apache2 restart```, e tentando aceder ao website ```www.example.com```, recebemos um alerta do browser que nos indica que este só confia em websites que provam a sua identidade através de certificados. 
 
-![Tarefa 5](images/LB 11/Tarefa5_1.png)
+![Tarefa 5](images/LB_11/Tarefa5_1.png)
 
 Sendo que o website que estamos a tentar aceder usa um certificado que é valido apenas para os domínios ```www.bank32.com```, ```www.bank32A.com``` e ```www.bank32B.com``` e nao para ```example.com``` a única maneira de aceder ao website é aceitando o potencial risco de segurança.
 
-![Tarefa 5](images/LB 11/Tarefa5_2.png)
+![Tarefa 5](images/LB_11/Tarefa5_2.png)
 
 ## Tarefa 6: Lançar um ataque do tipo Man-In-The-Middle com um Certificado Autenticador comprometido
 
@@ -200,7 +200,7 @@ Modificamos também o ficheiro de configuração do servidor ```etc/apache2/site
 
 Correndo o comando ```service apache2 restart```, e tentando aceder ao website ```www.example.com``` verificamos que a ligação era segura sem termos tido qualquer tipo de aviso de potencial risco do browser.
 
-![Tarefa 6](images/LB 11/Tarefa6.png)
+![Tarefa 6](images/LB_11/Tarefa6.png)
 
 # CTF RSA
 
