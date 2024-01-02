@@ -1,0 +1,80 @@
+###[ Ethernet ]### 
+  dst       = 02:42:7a🆎b2:ab
+  src       = 02:42:0a:09:00:06
+  type      = IPv4
+###[ IP ]### 
+     version   = 4
+     ihl       = 5
+     tos       = 0x0
+     len       = 84
+     id        = 24894
+     flags     = DF
+     frag      = 0
+     ttl       = 64
+     proto     = icmp
+     chksum    = 0x4e6b
+     src       = 10.9.0.6
+     dst       = 128.230.0.11
+     \options   \
+###[ ICMP ]### 
+        type      = echo-request
+        code      = 0
+        chksum    = 0x248d
+        id        = 0x21
+        seq       = 0x1
+###[ Raw ]### 
+           load      = ' \x85}e\x00\x00\x00\x00t\x93\x02\x00\x00\x00\x00\x00\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f !"#$%&\'()*+,-./01234567'
+
+###[ Ethernet ]### 
+  dst       = 02:42:7a🆎b2:ab
+  src       = 02:42:0a:09:00:06
+  type      = IPv4
+###[ IP ]### 
+     version   = 4
+     ihl       = 5
+     tos       = 0x0
+     len       = 84
+     id        = 25092
+     flags     = DF
+     frag      = 0
+     ttl       = 64
+     proto     = icmp
+     chksum    = 0x4da5
+     src       = 10.9.0.6
+     dst       = 128.230.0.11
+     \options   \
+###[ ICMP ]### 
+        type      = echo-request
+        code      = 0
+        chksum    = 0x417
+        id        = 0x21
+        seq       = 0x2
+###[ Raw ]### 
+           load      = '!\x85}e\x00\x00\x00\x00\x93\x08\x03\x00\x00\x00\x00\x00\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f !"#$%&\'()*+,-./01234567'
+
+###[ Ethernet ]### 
+  dst       = 02:42:7a🆎b2:ab
+  src       = 02:42:0a:09:00:06
+  type      = IPv4
+###[ IP ]### 
+     version   = 4
+     ihl       = 5
+     tos       = 0x0
+     len       = 84
+     id        = 25321
+     flags     = DF
+     frag      = 0
+     ttl       = 64
+     proto     = icmp
+     chksum    = 0x4cc0
+     src       = 10.9.0.6
+     dst       = 128.230.0.11
+     \options   \
+###[ ICMP ]### 
+        type      = echo-request
+        code      = 0
+        chksum    = 0xc8b8
+        id        = 0x21
+        seq       = 0x3
+###[ Raw ]### 
+           load      = '"\x85}e\x00\x00\x00\x00\xcde\x03\x00\x00\x00\x00\x00\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f !"#$%&\'()*+,-./01234567'

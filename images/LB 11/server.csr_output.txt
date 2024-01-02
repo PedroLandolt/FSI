@@ -1,0 +1,47 @@
+Certificate Request:
+    Data:
+        Version: 1 (0x0)
+        Subject: CN = www.bank32.com, O = Bank32 Inc., C = US
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                RSA Public-Key: (2048 bit)
+                Modulus:
+                    00:b7:17:2e:d4:d5:1a:60:44:31:f6:83:bb:49:77:
+                    e5:26:13:b0🆎ea:db:6b:83:df:ee:2a:d0:a8:7e:
+                    13:a3:c4:c7:fb:6a:be:80:23:bb:56:f5:4d:a2:43:
+                    0c:4d:76:3f:2a:00:3d:f6:a5:bc:f9:d0:c8:01:3d:
+                    73:00:9b:bc:b9:d3:89:31:2c:ea:f9:b3:c3:e3:75:
+                    4e:95:f0:f1:ff:4f:01:c4:02:59:9c:a3:87:73:dc:
+                    c7:2d:cb:78:5b:e2:66:d0:ce:e7:61:b9:6a:28:3f:
+                    67:e0:14:d7:78:ac:eb:8a:53:f1:9a:be:76:1f:35:
+                    e6:1b:d6:55:42:2f:3b:8e:96:e6:7a:68:ec:3d:d4:
+                    ae:e8:20:43:af:e9:2c:c0:d4:57:28:18:77:48:c0:
+                    2c:04:92:20:c6:ec:04:ce:35:ce:99:bf:c1:20:46:
+                    ee:28:de:ec:2d:f1:e6:33:55:0a:60:4e:6d:a1:dc:
+                    39:56:69:63:cf:66:b6:c6:ca:ca:f1:e6:d6:80:b3:
+                    88:e2:80:b4:a9:a9:62:61:d7:e7:15:2d:d0:8d:f5:
+                    44:61:53:ac:c0:42:e6:78:18:0b:fa:30:8a:4f:4a:
+                    59:f8:71:d3:21:4d:fb:a5:8a:6e:cc:0a:37:bf:f8:
+                    08:bb:fc:53:c4:54:bd:16:ce:d5:26:68:71:79:dc:
+                    d1:41
+                Exponent: 65537 (0x10001)
+        Attributes:
+        Requested Extensions:
+            X509v3 Subject Alternative Name: 
+                DNS:www.bank32.com, DNS:www.bank32A.com, DNS:www.bank32B.com
+    Signature Algorithm: sha256WithRSAEncryption
+         7a:a6:79:f7:77:63:50🆎e9:da:be:71:0f:8f:12:b0:db:14:
+         ce:51:59:3e:3a:f1:fe:5b:97:15:75:23:d5:92:52:6c:1a:08:
+         8e:29:0f:f0:d9:72:4c:45:07:48:e8:49:b1:91:bf:36:12:01:
+         d3:39:ee:7f:8f:8d:26:8b:55:18:77:eb:0f:b4:ae:62:14:88:
+         ad🆎e3:27:58:8c:90:17:fd:70:eb:ff:4c:94:89:4f:79:f4:
+         79:fe:42:e8:46:0f:fa:a0:0a:a7:63:72:b5:12:40:66:e9:9e:
+         33:56:58:ee:5a:d6:72:b1:d7:e8:07:a4:67:ec:4a:f0:27:a0:
+         38:17💿07:18:bb:82:f1:1e:2e:65:be:f5:8b:08:2b:16:ad:
+         e9:99:4d:3c:29:10:97:6e:7a:e2:8f:d8🆎6e:c5:9a:93:14:
+         38:11:1f:09:30:5c:55:c6:a2:3e:e8:97:74:fe:2d:25:2e:bb:
+         ef:98:3a:98:b1:f8:f3:a1:93:e6:1e:11:f9:28:4b:6a:c2:9e:
+         62:de:2c:45:f9:aa:41:88:60:22:95:86:a1:2e:c2:4b:1f:1a:
+         48:d6:f6:c6:0c:2e:12:75:33:6a:fe:c0:3a:b9:7b:db:af:84:
+         1a:cb:6f:97:ea:1d:5f:f7:a2:e9:26:d6:e3:c9:34:70:93:37:
+         49:26:27:1c
