@@ -472,7 +472,7 @@ $ openssl enc -aes-128-cbc -e -in plain.txt -out out_aes_128_cbc.bin -K 00112233
 
 Como seria de esperar, o _output_ é ininteligível:
 
-![Tarefa 2_1](images/LB 10/Tarefa 2_1.png)
+![Tarefa 2_1](images/LB_10/Tarefa_2_1.png)
 
 Podemos verificar o processo inverso, a desencrpitação para um ficheiro ```dec_aes_128_cbc.txt```, com:
 
@@ -492,7 +492,7 @@ $ openssl enc -bf-cbc -e -in plain.txt -out out_bf_cbc.bin -K 001122334455667788
 
 Como seria de esperar, o _output_ é ininteligível:
 
-![Tarefa 2_2](images/LB 10/Tarefa 2_2.png)
+![Tarefa 2_2](images/LB_10/Tarefa_2_2.png)
 
 Podemos verificar o processo inverso, a desencrpitação para um ficheiro ```dec_bf_cbc.txt```, com:
 
@@ -512,7 +512,7 @@ $ openssl enc -aes-128-cfb -e -in plain.txt -out out_aes_128_cfb.bin -K 00112233
 
 Como seria de esperar, o _output_ é ininteligível:
 
-![Tarefa 2_3](images/LB 10/Tarefa 2_3.png)
+![Tarefa 2_3](images/LB_10/Tarefa_2_3.png)
 
 Podemos verificar o processo inverso, a desencrpitação para um ficheiro ```dec_aes_128_cfb.txt```, com:
 
@@ -530,7 +530,7 @@ _(Nota: apesar de as imagens utilizadas no desenvolvimento da tarefa estarem em 
 
 É-nos fornecida a seguinte imagem, no ficheiro ```pic_original.bmp```:
 
-![pic_original](images/LB 10/pic_original.jpg)
+![pic_original](images/LB_10/pic_original.jpg)
 
 #### Modo ECB
 
@@ -561,7 +561,7 @@ $ cat header body > new.bmp
 
 Abrindo o ficheiro recém-criado com o programa de visualização de imagens sugerido (```eog new.bmp```), visualizamos:
 
-![Tarefa 3_Orig_ECB](images/LB 10/Tarefa 3_Orig_ECB.png)
+![Tarefa 3_Orig_ECB](images/LB_10/Tarefa_3_Orig_ECB.png)
 
 Ora, apesar de as cores apresentadas serem distintas das originais, podemos identificar claramente as formas geométricas da imagem original!
 
@@ -587,7 +587,7 @@ $ cat header body > new.bmp
 
 Abrimos, então, o resultado:
 
-![Tarefa 3_Orig_CBC](images/LB 10/Tarefa 3_Orig_CBC.png)
+![Tarefa 3_Orig_CBC](images/LB_10/Tarefa_3_Orig_CBC.png)
 
 Desta vez, podemos ver que obtivemos algo completamente ininteligível, não sendo revelada, aparentemente, qualquer informação da imagem original.
 
@@ -595,7 +595,7 @@ Desta vez, podemos ver que obtivemos algo completamente ininteligível, não sen
 
 Repetimos a experiência com uma imagem à escolha. No caso, utilizamos uma imagem que contém um segredo:
 
-![segredo](images/LB 10/segredo.jpg)
+![segredo](images/LB_10/segredo.jpg)
 
 #### Modo ECB
 
@@ -615,7 +615,7 @@ $ cat header body > new.bmp
 
 Como seria de esperar, dado o uso do modo ECB, o resultado em ```new.bmp``` é revelador:
 
-![Tarefa 3_Segredo_ECB](images/LB 10/Tarefa 3_Segredo_ECB.png)
+![Tarefa 3_Segredo_ECB](images/LB_10/Tarefa_3_Segredo_ECB.png)
 
 #### Modo CBC
 
@@ -637,7 +637,7 @@ $ cat header body > new.bmp
 
 De novo, o resultado:
 
-![Tarefa 3_Segredo_CBC](images/LB 10/Tarefa 3_Segredo_CBC.png)
+![Tarefa 3_Segredo_CBC](images/LB_10/Tarefa_3_Segredo_CBC.png)
 
 Ininteligível, como esperado.
 
@@ -708,7 +708,7 @@ print("Mensagem original: ", mensagemDecifrada)
 
 O código acima gera uma chave aleatória, uma mensagem de teste e um nonce gerado aleatoriamente com o os.urandom(), com a dimensão do KEYLEN, que neste caso é 16. Em seguida, utilizamos a função enc() para encriptar a mensagem e imprimimos a mensagem encriptada. Depois, utilizamos a função dec() para desencriptar a mensagem e imprimimos a mensagem desencriptada.
 
-![CTF-Teste](images/LB 10/CTF-Teste.png)
+![CTF-Teste](images/LB_10/CTF-Teste.png)
 
 ## Como consigo fazer uso da vulnerabilidade que observei para quebrar o código?
 
@@ -752,4 +752,4 @@ else:
 
 O código acima testa todas as chaves possíveis e verifica se alguma delas nos dá a flag. Se alguma chave nos der a flag, o código para e imprime a chave encontrada. Se nenhuma chave nos der a flag, o código para e imprime que não encontrou a flag. Esta abordagem é lenta, pois temos que testar todas as chaves possíveis, mas é a única forma de obter a flag. Como alternativa, poderíamos usar um loop infinito (while true) e a função gen() para gerar chaves aleatórias até encontrar a flag. No entanto, isso poderia demorar muito tempo ou até nunca encontrar a flag, pois a chave é gerada de forma aleatória. Mesmo usando um conjunto para armazenar as chaves já testadas, não há garantia de que a chave gerada não seja uma chave já testada, o que poderia prolongar indefinidamente o processo. Portanto, a abordagem de testar todas as chaves possíveis é a melhor, mesmo que por sorte a flag seja encontrada logo nas primeiras chaves testadas com a função gen().
 
-![CTF-flag](images/LB 10/CTF-flag.png)
+![CTF-flag](images/LB_10/CTF-flag.png)
