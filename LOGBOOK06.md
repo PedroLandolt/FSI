@@ -4,15 +4,15 @@
 
 Inserimos texto aleatório na caixa de input e submetemos o pedido.
 
-![First_Input](images/CTF XSS + CSRF/First_Input.PNG)
+![First_Input](images/CTF_XSS_+_CSRF/First_Input.PNG)
 
 Somos então redirecionados para uma nova página que mostrava que o nosso pedido não foi aprovado pelo administrador (não nos seria dada a flag). 
 
-![Justification_Page](images/CTF XSS + CSRF/Justification_Page.PNG)
+![Justification_Page](images/CTF_XSS_+_CSRF/Justification_Page.PNG)
 
 Esta continha ainda um link (na palavra ```page```) para outra página com dois botões desativados, onde o administrador pode fornecer a flag e marcar o pedido como lido.
 
-![Admin_Page](images/CTF XSS + CSRF/Admin_Page.PNG)
+![Admin_Page](images/CTF_XSS_+_CSRF/Admin_Page.PNG)
 
 ## 2\. Investigar a página do administrador 
 
@@ -50,11 +50,11 @@ Reaproveitanto o código acima, fizemos três alterações que nos permitiram fa
 Após atualizarmos a página, para obter um novo id, submetemos o código alterado, substituindo o ```id``` no url presente no atributo ```action``` do form pelo respetivo id do novo pedido.
 Somos redirecionados para uma nova página que fica disponível apenas por muito breves momentos e que logo é substituida pelo seguinte aviso:
 
-![Forbidden](images/CTF XSS + CSRF/Forbidden.PNG)
+![Forbidden](images/CTF_XSS_+_CSRF/Forbidden.PNG)
 
 ## 5\. Desativar o JavaScript
 
 Para conseguirmos visualizar a página com cuidado, desativamos o JavaScript do browser utilizado e voltamos a repetir o passo 4.
 Após submetermos o pedido, atualizando a página, a flag fica disponível.
 
-![Flag](images/CTF XSS + CSRF/Flag.PNG)
+![Flag](images/CTF_XSS_+_CSRF/Flag.PNG)
