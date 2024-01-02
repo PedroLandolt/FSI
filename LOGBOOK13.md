@@ -9,7 +9,7 @@ Seguidamente, executámos o comando ```dockps``` para identificar os IDs dos dif
 
 No terminal referente ao **_attacker container_**, corremos o comando ```ifconfig``` para descobrirmos o nome da respetiva interface.
 
-![Tarefa 1.1](images/LB 13/Tarefa1.1_1.png)
+![Tarefa 1.1](images/LB_13/Tarefa1.1_1.png)
 
 Dentro do diretório ```/volumes```, partilhado entre a VM e o _container_, criámos o programa ```task1A.py```, seguindo o _template_ disponibilizado no guião e alterando o nome da interface para o correspondente:
 
@@ -28,17 +28,17 @@ Seguidamente, no terminal do **_attacker container_** corremos o comando ```chmo
 
 No terminal do **_hostB container_** corremos o comando ```ifconfig``` para descobrirmos o seu IP.
 
-![Tarefa 1.1](images/LB 13/Tarefa1.1_2.png)
+![Tarefa 1.1](images/LB_13/Tarefa1.1_2.png)
 
 No terminal do **_hostA container_** corremos o comando ```ping 10.9.0.6```
 
-![Tarefa 1.1](images/LB 13/Tarefa1.1_3.png)
+![Tarefa 1.1](images/LB_13/Tarefa1.1_3.png)
 
-Obtivemos o seguinte output (![sniffing_sudo.txt](images/LB 13/sniffing_sudo.txt)), captura de apenas os **_ICMP Packets_**.
+Obtivemos o seguinte output (![sniffing_sudo.txt](images/LB_13/sniffing_sudo.txt)), captura de apenas os **_ICMP Packets_**.
 
 Corremos o comando ```su seed``` para trocarmos para a conta "seed" e corremos novamente o programa sem o previlégio de _root_.
 
-![Tarefa 1.1](images/LB 13/Tarefa1.1_4.png)
+![Tarefa 1.1](images/LB_13/Tarefa1.1_4.png)
 
 Para capturar quaisquer **_TCP packets_ provenientes de um IP específico e com uma porta de destino com o número 23**, alteramos a seguinte linha do ficheiro ```task1A.py```, inserindo no _filter_ o ip do **_hostB container_** e a porta de destino 23.
 
@@ -50,9 +50,9 @@ pkt = sniff(iface='br-37296346f4ee', filter='tcp and src host 10.9.0.6 and dst p
 
 Corremos novamente o programa no **_attacker container_**, e no terminal do **_hostB container_** corremos o comando ```telnet 10.9.0.5``` (ip _hostA container_) e fizemos o login com as credencias da VM, user: seed e password: dees.
 
-![Tarefa 1.1](images/LB 13/Tarefa1.1_5.png)
+![Tarefa 1.1](images/LB_13/Tarefa1.1_5.png)
 
-No terminal do **_attacker container_** obtivemos o seguinte output (![sniffing_tcp.txt](images/LB 13/sniffing_tcp.txt)), onde podemos verificar nas linhas 16 e 21, respetivamente, que o endereço de IP de origem é ```10.9.0.5``` e a porta de destino é ```telnet```.
+No terminal do **_attacker container_** obtivemos o seguinte output (![sniffing_tcp.txt](images/LB_13/sniffing_tcp.txt)), onde podemos verificar nas linhas 16 e 21, respetivamente, que o endereço de IP de origem é ```10.9.0.5``` e a porta de destino é ```telnet```.
 
 Para o terceiro e último filtro alteramos novamente a seguinta linha:
 
@@ -62,9 +62,9 @@ pkt = sniff(iface='br-37296346f4ee', filter='dst net 128.230.0.0/16', prn=print_
 
 Corremos novamente o programa no **_attacker container_** e no **_hostA container_** corremos o comando ```ping 128.230.0.11```
 
-![Tarefa 1.1](images/LB 13/Tarefa1.1_6.png)
+![Tarefa 1.1](images/LB_13/Tarefa1.1_6.png)
 
-No terminal do **_attacker container_** obtivemos o seguinte output (![sniffing_particular_subnet.txt](images/LB 13/sniffing_particular_subnet.txt)), captura de **_packets_ provenientes de uma _subnet_ específica**.
+No terminal do **_attacker container_** obtivemos o seguinte output (![sniffing_particular_subnet.txt](images/LB_13/sniffing_particular_subnet.txt)), captura de **_packets_ provenientes de uma _subnet_ específica**.
 
 ## Tarefa 1.2 - Spoofing ICMP Packets
 
@@ -88,15 +88,15 @@ No terminal do **_attacker container_** corremos o comando ```chmod a+x task1B.p
 
 Seguidamente abrimos o Wireshark e selecionamos a interface do _attacker_, ```enp0s3```.
 
-![Tarefa 1.2](images/LB 13/Tarefa1.2_1.png)
+![Tarefa 1.2](images/LB_13/Tarefa1.2_1.png)
 
 Corremos o programa ```task1B.py```:
 
-![Tarefa 1.2](images/LB 13/Tarefa1.2_2.png)
+![Tarefa 1.2](images/LB_13/Tarefa1.2_2.png)
 
 No Wireshark podemos observar que foi captrurado um _packet_ com o _source IP_ do nosso **_attacker container_** e com o destino no endereço de IP arbitrário que definimos, ```10.2.0.3```.
 
-![Tarefa 1.2](images/LB 13/Tarefa1.2_3.png)
+![Tarefa 1.2](images/LB_13/Tarefa1.2_3.png)
 
 Para a nossa tentativa de _Spoofing_ alterámos o ficheiro ```task1B.py``` adicionando a seguinte linha:
 
@@ -106,7 +106,7 @@ a.src = '10.0.2.15'
 
 Repetindo o processo anterior, verificamos no Wireshark que foi capturado um _packet_ com origem no endereço de IP arbitrário especificado ```10.0.2.15```.
 
-![Tarefa 1.2](images/LB 13/Tarefa1.2_4.png)
+![Tarefa 1.2](images/LB_13/Tarefa1.2_4.png)
 
 ## Tarefa 1.3 - Traceroute
 
@@ -131,11 +131,11 @@ Corremos o comando ```chmod a+x task1C.py``` para tornarmos o programa executáv
 
 Analisando o Wireshark verificámos que, para todos os valores de TTL anteriores a 13, como mostrado na imagem, o _'time to live'_ foi _'exceeded'_, mas a partir deste valor começamos a receber uma resposta com origem no endereço de IP ```8.8.8.8```.
 
-![Tarefa 1.3](images/LB 13/Tarefa1.3_1.png)
+![Tarefa 1.3](images/LB_13/Tarefa1.3_1.png)
 
 Finalmente, por questões de confirmação, corremos o comando ```traceroute 8.8.8.8``` e verificamos, através do seguinte _output_, o que tinhamos concluído anteriormente, são necessários 13 "saltos" entre routers para o _packet_ chegar ao destino final.
 
-![Tarefa 1.3](images/LB 13/Tarefa1.3_2.png)
+![Tarefa 1.3](images/LB_13/Tarefa1.3_2.png)
 
 ## Tarefa 1.4 - Sniffing and-then Spoofing
 
@@ -172,11 +172,11 @@ Para **_"dar ping"_ a um host não existente na Internet**, corremos o programa 
 
 Terminal **_attacker container_**:
 
-![Tarefa 1.4](images/LB 13/Tarefa1.4_1.png)
+![Tarefa 1.4](images/LB_13/Tarefa1.4_1.png)
 
 Terminal **_hostA container_**:
 
-![Tarefa 1.4](images/LB 13/Tarefa1.4_2.png)
+![Tarefa 1.4](images/LB_13/Tarefa1.4_2.png)
 
 Para **_"dar ping"_ a um host não existente na LAN**, alteramos o _host_ no _filter_ na última linha do ficheiro ```task1D.py```:
 
@@ -190,7 +190,7 @@ Do lado do **_attacker container_** não houve qualquer tipo de _output_.
 
 Já do lado do **_hostA container_** recebemos as seguintes mensagens:
 
-![Tarefa 1.4](images/LB 13/Tarefa1.4_3.png)
+![Tarefa 1.4](images/LB_13/Tarefa1.4_3.png)
 
 Como este endereço de IP não existe na LAN, não tem um _MAC address_ associado, logo não ha _mapping_ do endereço de IP para o _MAC address_ na _ARP table_.
 
@@ -202,11 +202,11 @@ pkt = sniff(iface='br-37296346f4ee', filter='icmp and host 8.8.8.8', prn=spoof_p
 
 Corremos novamente o programa, mas desta vez no **_hostA container_** corremos o comando ```ping 8.8.8.8```
 
-![Tarefa 1.4](images/LB 13/Tarefa1.4_4.png)
+![Tarefa 1.4](images/LB_13/Tarefa1.4_4.png)
 
 Como podemos verificar no output no terminal do **_hostA container_**, tanto recebemos _packets_ do _host_ real, como _spoofed packets_. Alguns estão marcados como DUP (duplicados).
 
-![Tarefa 1.4](images/LB 13/Tarefa1.4_5.png)
+![Tarefa 1.4](images/LB_13/Tarefa1.4_5.png)
 
 # CTF13 - _Find-my-TLS_
 
@@ -240,7 +240,7 @@ Para realizar essa tarefa, será empregada a ferramenta Wireshark, uma aplicaç�
 
 Utilizamos a ferramenta Wireshark para conduzir a análise do arquivo "dump.pcapng". O processo iniciou-se aplicando um filtro específico, _tls.handshake.random == 52:36:2c:11:ff:0e:a3:a0:00:e1:b4:8d:c2:d9:9e:04:c6:d0:6e:a1:a0:61:d5:b8:dd:bf:87:b0:01:74:5a:27_, a fim de selecionar exclusivamente a conexão que faz uso do número aleatório fornecido.
 
-![CTF-13-WhiresharkFilter](images/LB 13/CTF13-1.png)
+![CTF-13-WhiresharkFilter](images/LB_13/CTF13-1.png)
 
 ### Análise do Handshake e Conclusão do Procedimento TLS
 
@@ -264,7 +264,7 @@ No segundo passo da resolução, focamos na determinação da ciphersuite utiliz
 
 Na análise detalhada do frame 814, encontramos que a ciphersuite utilizada nessa conexão específica é TLS_RSA_WITH_AES_128_CBC_SHA256. Esse valor é crucial para preencher o campo <selected_cipher_suite> na estrutura da flag.
 
-![CTF-13-WhiresharkTLS](images/LB 13/CTF13-2.png)
+![CTF-13-WhiresharkTLS](images/LB_13/CTF13-2.png)
 
 ### Considerações Teóricas sobre a Cipher Suite
 
@@ -286,13 +286,13 @@ No terceiro passo da resolução, concentramo-nos em calcular o tamanho total do
 
 No frame 820, identificamos que o campo "Length" indica o tamanho dos dados cifrados, que neste caso é 1184 bytes.
 
-![CTF-13-Frame820](images/LB 13/CTF13-3.png)
+![CTF-13-Frame820](images/LB_13/CTF13-3.png)
 
 ### Frame 821
 
 Analogamente, no frame 821, o campo "Length" indica o tamanho dos dados cifrados, sendo neste caso 80 bytes.
 
-![CTF-13-Frame821](images/LB 13/CTF13-4.png)
+![CTF-13-Frame821](images/LB_13/CTF13-4.png)
 
 Somando os valores dos campos "Length" dos dois frames (1184 + 80), obtemos o tamanho total dos dados cifrados trocados, que é 1264 bytes.
 
