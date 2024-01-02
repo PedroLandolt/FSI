@@ -12,11 +12,11 @@ De seguida, corremos ```dbbuild``` e ```dcup```. Iniciamos um segundo terminal, 
 
 Executando ```echo hello | nc 10.9.0.5 9090``` no segundo terminal, verificamos a impressão de uma mensagem de sucesso no terminal do servidor, o que indica que, tal como esperado, o programa vulnerável foi executado normalmente.
 
-![Tarefa 1_1](images/LB 7/Tarefa 1_1.png)
+![Tarefa 1_1](images/LB_7/Tarefa_1_1.png)
 
 Para o quebrar, bastou-nos correr, do lado do cliente, ```echo %s | nc 10.9.0.5 9090``` e pressionar ```Ctrl + C```, o que fez com que o servidor já não imprimisse a mensagem de sucesso. O caracter de formatação ```%s``` indica ao programa que procure uma string, que deve terminar com o típico caracter de escape (```\0```). Ora, sabendo, do guião, que o programa aceita até 1500 bytes de _input_, acaba por não encontrar o caracter de escape dentro desse limite.
 
-![Tarefa 1_2](images/LB 7/Tarefa 1_2.png)
+![Tarefa 1_2](images/LB_7/Tarefa_1_2.png)
 
 Foi assim quebrado o programa vulnerável.
 
@@ -28,7 +28,7 @@ Se fornecermos, do lado do cliente (sob a forma ```echo <input> | nc 10.9.0.5 90
 
 Então, executando ```echo AAAA%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x | nc 10.9.0.5 9090``` (```AAAA``` seguido de 64 ```%x```), podemos ver, então, do lado do servidor, ```41414141```.
 
-![Tarefa 2A](images/LB 7/Tarefa 2A.png)
+![Tarefa 2A](images/LB_7/Tarefa_2A.png)
 
 Assim, existem 63 bytes entre a região de memória de início da _string_ de formatação e o início de ```msg```.
 
@@ -70,7 +70,7 @@ Resta-nos enviar o seu conteúdo como _input_ para o programa vulnerável no ser
 
 Executando, no terminal do lado do cliente, ```cat badfile | nc 10.9.0.5 9090```, podemos ver, então, do lado do servidor:
 
-![Tarefa 2B](images/LB 7/Tarefa 2B.png)
+![Tarefa 2B](images/LB_7/Tarefa_2B.png)
 
 'A secret message'.
 
@@ -108,7 +108,7 @@ Desta vez:
 
 Assim, após gerar ```badfile``` e correr, como de costume ```cat badfile | nc 10.9.0.5 9090```, vemos, do lado do servidor:
 
-![Tarefa 3A](images/LB 7/Tarefa 3A.png)
+![Tarefa 3A](images/LB_7/Tarefa_3A.png)
 
 Tal como pode ser observado na imagem, o valor da variável-alvo foi alterado:
 
@@ -148,11 +148,11 @@ Então, resta-nos povoar os restantes 19980 caracteres do _input_. Para isso, us
 
 Compilando e correndo o programa, que, como se pode ver, já envia o _input_ direcionado ao servidor para uma consola, podemos então observar, no _output_ do servidor:
 
-![Tarefa 3B_1](images/LB 7/Tarefa 3B_1.png)
+![Tarefa 3B_1](images/LB_7/Tarefa_3B_1.png)
 
 (depois de uma série de zeros que ajudam a perfazer os desejados 19980...)
 
-![Tarefa 3B_2](images/LB 7/Tarefa 3B_2.png)
+![Tarefa 3B_2](images/LB_7/Tarefa_3B_2.png)
 
 Que o valor da variável-alvo é, tal como pretendido, ```0x00005000```.
 
@@ -162,7 +162,7 @@ Que o valor da variável-alvo é, tal como pretendido, ```0x00005000```.
 
 Tal como descrito no enunciado, começamos por correr o comando ```checksec program``` para verificar quais as proteções ativas neste programa. 
 
-![Desafio 1.1](images/LB 7/CTF-1.png) 
+![Desafio 1.1](images/LB_7/CTF-1.png) 
 
 Verificamos então que, há RELRO parcial, existem canários de proteção do endereço de retorno e não há aleatorização das posições do binário (NO PIE).
 
@@ -191,7 +191,7 @@ Para isso, no ficheiro ```exploit_example.py```, criamos uma string de teste, ut
 ```
 
 Obtivemos o seguinte output:
-![Desafio 1.2](images/LB 7/CTF-4.png) 
+![Desafio 1.2](images/LB_7/CTF-4.png) 
 
 Com isto podemos ver que o padrão "41414141" aparece logo com o primeiro "%x", ou seja, podemos colocar nessa posiçao o "%s" para ler a flag.
 
@@ -200,20 +200,20 @@ Sabendo que a flag se encontra numa variável global, e como percebemos que o en
 
 Corremos o comando ```gbd program```, adicionamos um _break point_ na função main e demos print ao endereco de memória da variavel ```flag```.
 
-![Desafio 1.3](images/LB 7/CTF-2.png) 
-![Desafio 1.4](images/LB 7/CTF-3.png) 
+![Desafio 1.3](images/LB_7/CTF-2.png) 
+![Desafio 1.4](images/LB_7/CTF-3.png) 
 
 O endereço de retorno obtido foi ```0x0804c060```. Devido à arquitetura little-endian da máquina, escrevemos o endereço no formato de string ```\x60\xC0\x04\x08```.
 
-![Desafio 1.5](images/LB 7/CTF-5.png) 
+![Desafio 1.5](images/LB_7/CTF-5.png) 
 
 Utilizando o ficheiro ```exploit_example.py``` disponibilizado, e substituindo o input do utilizador pelo endereço de retorno em formato de string obtivemos o placeholder da flag.
 
-![Desafio 1.6](images/LB 7/CTF-6.png) 
+![Desafio 1.6](images/LB_7/CTF-6.png) 
 
 Sendo que o exploit tinha sido criado com sucesso, alteramos a variável ```Local``` no ficheiro do exploit para ```False``` para o corrermos no servidor. 
 
-![Desafio 1.7](images/LB 7/CTF-7.png) 
+![Desafio 1.7](images/LB_7/CTF-7.png) 
 
 Obtivemos então a flag do desafio ```flag{58972a0313d368a6c3d07bf425505dfd}```
 
@@ -221,7 +221,7 @@ Obtivemos então a flag do desafio ```flag{58972a0313d368a6c3d07bf425505dfd}```
 
 Como descrito no enunciado, começamos por correr o comando ```checksec program``` para verificar quais as proteções ativas neste programa. 
 
-![Desafio 2.1](images/LB 7/CTF-8.png) 
+![Desafio 2.1](images/LB_7/CTF-8.png) 
 
 Verificamos que não há RELRO parcial, existem canários de proteção do endereço de retorno e não há aleatorização das posições do binário (NO PIE).
 
@@ -242,14 +242,14 @@ Similarmente ao primeiro desafio, como ```key``` é uma variável global, e por 
 
 Seguindo a mesma estratégia usada no Desafio 1, inicialmente recorremos ao gdb para encontrar o valor do endereço de memória da variável key.
 
-![Desafio 2.2](images/LB 7/CTF-9.png) 
-![Desafio 2.3](images/LB 7/CTF-10.png) 
+![Desafio 2.2](images/LB_7/CTF-9.png) 
+![Desafio 2.3](images/LB_7/CTF-10.png) 
 
 O endereço de retorno obtido foi ```0x0804b324```.
 
 Tal como no Desafio 1, criamos uma string de teste, utilizando '%x', para descobrirmos a localização do input que acabamos de inserir e verificamos que o padrão "41414141" aparece logo com o primeiro '%x'.
 
-![Desafio 2.4](images/LB 7/CTF-11.png) 
+![Desafio 2.4](images/LB_7/CTF-11.png) 
 
 Utilizando uma cópia do ficheiro ```exploit_example.py```, disponibilizado no Desafio 1, alteramos a porta para a respetiva ao Desafio 2 (4005) e retiramos a seguinte linha de código de forma a que o script não interrompa a sua execução, uma vez que o output inicial é diferente neste desafio.
 
@@ -270,4 +270,4 @@ Sendo assim, corremos o novo exploit com a string de input ```AAAA\x24\xB3\x04\x
 Verificamos que o programa imprime o _garbage address_, mas reescreve o endereço da key, ativando assim a backdoor. 
 Correndo o comando `cat flag.txt`, obtivemos assim a flag ```flag{b0f668048a22647face76747c1d49d5f}```.
 
-![Desafio 2.5](images/LB 7/CTF-12.png) 
+![Desafio 2.5](images/LB_7/CTF-12.png) 
